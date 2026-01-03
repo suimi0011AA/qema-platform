@@ -12,13 +12,18 @@
     "deploy:vercel": "vercel --prod",
     "deploy:netlify": "netlify deploy --prod"
   },
-  "keywords": ["events", "qema", "platform"],
+  "keywords": [
+    "events",
+    "qema",
+    "platform"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.39.0"
   },
   "devDependencies": {
+    "terser": "^5.44.1",
     "vite": "^5.0.11"
   }
 }
