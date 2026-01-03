@@ -37,6 +37,7 @@ export class Router {
         // Check for admin parameter and store it
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('admin') === 'true') {
+            console.log('Admin parameter detected, storing in sessionStorage');
             sessionStorage.setItem('adminAccess', 'true');
         }
 
@@ -50,11 +51,14 @@ export class Router {
         }
 
         // Hide registration and login from public (admin-only)
+        // TEMPORARILY DISABLED FOR DEBUGGING
+        /*
         if ((hash === '/register' || hash === '/login') && !this.isAdminAccess()) {
             // Redirect to home if trying to access admin login/register
             window.location.hash = '#/';
             return;
         }
+        */
 
         let matchedRoute = null;
         let params = {};
@@ -97,6 +101,18 @@ export class Router {
         const isAuthenticated = this.auth.isAuthenticated();
         const hasAdminInReferrer = document.referrer.includes('admin-login');
         const hasStoredAdminAccess = sessionStorage.getItem('adminAccess') === 'true';
+        
+        // Debug logging
+        console.log('Admin Access Check:', {
+            urlParams: window.location.search,
+            isAdminParam,
+            isAdminPath,
+            pathname: window.location.pathname,
+            isAuthenticated,
+            referrer: document.referrer,
+            hasAdminInReferrer,
+            hasStoredAdminAccess
+        });
         
         // Also check if we came from admin-login page or have admin param or stored access
         return isAuthenticated || isAdminParam || isAdminPath || hasAdminInReferrer || hasStoredAdminAccess;
