@@ -14,7 +14,7 @@ export class EventDetailPage {
             return `
                 <nav class="nav">
                     <div class="nav-content">
-                        <a href="#/" class="nav-logo"><img src="src/assets/qimmahlogo.png" alt="مبادرة قِمّة" class="logo"><span>مبادرة قِمّة</span></a>
+                        <a href="#/" class="nav-logo"><img src="/src/assets/qimmahlogo.png" alt="مبادرة قِمّة" class="logo"></a>
                     </div>
                 </nav>
                 <div class="section">
@@ -47,7 +47,7 @@ export class EventDetailPage {
         return `
             <nav class="nav">
                 <div class="nav-content">
-                    <a href="#/" class="nav-logo"><img src="src/assets/qimmahlogo.png" alt="مبادرة قِمّة" class="logo"><span>مبادرة قِمّة</span></a>
+                    <a href="#/" class="nav-logo"><img src="/src/assets/qimmahlogo.png" alt="مبادرة قِمّة" class="logo"></a>
                     <div class="nav-menu">
                         <a href="#/" class="nav-link">الرئيسية</a>
                         <a href="#/events" class="nav-link">الفعاليات</a>
