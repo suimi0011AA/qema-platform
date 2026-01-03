@@ -8,7 +8,7 @@ export class CreateEventPage {
             <nav class="nav">
                 <div class="nav-content">
                     <a href="#/" class="nav-logo">
-                        <img src="/src/assets/qimmahlogo.png" alt="مبادرة قِمّة" class="logo">
+                        <img src="/public/qimmahlogo.png" alt="مبادرة قِمّة" class="logo">
                     </a>
                     <div class="nav-menu">
                         <a href="#/dashboard" class="nav-link">لوحة التحكم</a>
