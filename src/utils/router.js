@@ -7,6 +7,7 @@ import { DashboardPage } from '../pages/dashboard.js';
 import { CreateEventPage } from '../pages/create-event.js';
 import { EditEventPage } from '../pages/edit-event.js';
 import { ProgramsPage } from '../pages/programs.js';
+import { AdminPortalPage } from '../pages/admin-portal.js';
 
 export class Router {
     constructor(auth) {
@@ -20,7 +21,8 @@ export class Router {
             '/dashboard': DashboardPage,
             '/create-event': CreateEventPage,
             '/edit-event/:id': EditEventPage,
-            '/programs': ProgramsPage
+            '/programs': ProgramsPage,
+            '/admin': AdminPortalPage
         };
         this.currentPage = null;
     }
