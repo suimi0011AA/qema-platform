@@ -15,6 +15,7 @@ export class DashboardPage {
                 <div class="nav-content">
                     <a href="#/" class="nav-logo">
                         <img src="/qimmahlogo.png" alt="مبادرة قِمّة" class="logo">
+                        <span>مبادرة قِمّة</span>
                     </a>
                     <div class="nav-menu">
                         <a href="#/" class="nav-link">الرئيسية</a>

@@ -14,8 +14,9 @@ export class AuthManager {
             this.notifyListeners();
 
             if (event === 'SIGNED_IN') {
-                window.location.hash = '#/events';
+                window.location.hash = '#/dashboard'; // Redirect to dashboard for admin users
             } else if (event === 'SIGNED_OUT') {
+                sessionStorage.removeItem('adminAccess'); // Clear admin access on logout
                 window.location.hash = '#/';
             }
         });

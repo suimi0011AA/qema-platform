@@ -34,6 +34,12 @@ export class Router {
         const hash = window.location.hash.slice(1) || '/';
         const app = document.getElementById('app');
 
+        // Check for admin parameter and store it
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('admin') === 'true') {
+            sessionStorage.setItem('adminAccess', 'true');
+        }
+
         // Admin-only routes
         const adminRoutes = ['/dashboard', '/create-event'];
         const editEventRoute = hash.match(/^\/edit-event\/(.+)$/);
@@ -89,8 +95,11 @@ export class Router {
         const isAdminParam = urlParams.get('admin') === 'true';
         const isAdminPath = window.location.pathname.includes('admin-login');
         const isAuthenticated = this.auth.isAuthenticated();
+        const hasAdminInReferrer = document.referrer.includes('admin-login');
+        const hasStoredAdminAccess = sessionStorage.getItem('adminAccess') === 'true';
         
-        return isAuthenticated || isAdminParam || isAdminPath;
+        // Also check if we came from admin-login page or have admin param or stored access
+        return isAuthenticated || isAdminParam || isAdminPath || hasAdminInReferrer || hasStoredAdminAccess;
     }
 
     navigate(path) {
