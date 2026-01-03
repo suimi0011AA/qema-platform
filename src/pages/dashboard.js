@@ -13,7 +13,10 @@ export class DashboardPage {
         return `
             <nav class="nav">
                 <div class="nav-content">
-                    <a href="#/" class="nav-logo">مبادرة قِمّة</a>
+                    <a href="#/" class="nav-logo">
+                        <img src="src/assets/qimmahlogo.png" alt="مبادرة قِمّة" class="logo">
+                        <span>مبادرة قِمّة</span>
+                    </a>
                     <div class="nav-menu">
                         <a href="#/" class="nav-link">الرئيسية</a>
                         <a href="#/events" class="nav-link">الفعاليات</a>
@@ -28,40 +31,40 @@ export class DashboardPage {
                 <div class="container">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
                         <div>
-                            <h1 style="font-size: 32px; font-weight: 700;">لوحة التحكم</h1>
-                            <p style="color: var(--neutral-600); margin-top: 8px;">مرحبًا، ${user?.user_metadata?.name || user?.email}</p>
+                            <h1 class="heading-primary" style="font-size: 32px; margin-bottom: 8px;">لوحة التحكم</h1>
+                            <p class="text-secondary">مرحبًا، ${user?.user_metadata?.name || user?.email}</p>
                         </div>
                         <a href="#/create-event" class="btn btn-primary">إضافة فعالية جديدة</a>
                     </div>
 
                     <div class="grid grid-3" style="margin-bottom: 32px;">
-                        <div class="card" style="text-align: center;">
-                            <div style="font-size: 36px; font-weight: 700; color: var(--primary); margin-bottom: 8px;">
+                        <div class="stats-card-green">
+                            <div style="font-size: 36px; font-weight: 700; color: var(--brand-green); margin-bottom: 8px;">
                                 ${this.stats.total}
                             </div>
-                            <div style="color: var(--neutral-600);">إجمالي الفعاليات</div>
+                            <div class="text-secondary">إجمالي الفعاليات</div>
                         </div>
-                        <div class="card" style="text-align: center;">
-                            <div style="font-size: 36px; font-weight: 700; color: var(--success); margin-bottom: 8px;">
+                        <div class="stats-card-brown">
+                            <div style="font-size: 36px; font-weight: 700; color: var(--brand-brown); margin-bottom: 8px;">
                                 ${this.stats.published}
                             </div>
-                            <div style="color: var(--neutral-600);">منشورة</div>
+                            <div class="text-secondary">منشورة</div>
                         </div>
-                        <div class="card" style="text-align: center;">
-                            <div style="font-size: 36px; font-weight: 700; color: var(--warning); margin-bottom: 8px;">
+                        <div class="stats-card-red">
+                            <div style="font-size: 36px; font-weight: 700; color: var(--brand-red); margin-bottom: 8px;">
                                 ${this.stats.draft}
                             </div>
-                            <div style="color: var(--neutral-600);">مسودات</div>
+                            <div class="text-secondary">مسودات</div>
                         </div>
                     </div>
 
-                    <h2 style="font-size: 24px; font-weight: 600; margin-bottom: 24px;">فعالياتي</h2>
+                    <h2 class="heading-secondary" style="font-size: 24px; margin-bottom: 24px;">فعالياتي</h2>
 
                     ${this.myEvents.length === 0 ? `
-                        <div class="card" style="text-align: center; padding: 64px 32px;">
+                        <div class="card shadow-soft" style="text-align: center; padding: 64px 32px; background: var(--gray-50);">
                             <div style="font-size: 64px; margin-bottom: 16px;">📝</div>
-                            <h3 style="margin-bottom: 8px;">لم تقم بإنشاء أي فعالية بعد</h3>
-                            <p style="color: var(--neutral-600); margin-bottom: 24px;">ابدأ بإنشاء فعاليتك الأولى</p>
+                            <h3 class="heading-secondary" style="margin-bottom: 8px;">لم تقم بإنشاء أي فعالية بعد</h3>
+                            <p class="text-muted" style="margin-bottom: 24px;">ابدأ بإنشاء فعاليتك الأولى</p>
                             <a href="#/create-event" class="btn btn-primary">إنشاء فعالية</a>
                         </div>
                     ` : `
@@ -89,29 +92,30 @@ export class DashboardPage {
         };
 
         return `
-            <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
-                    <h3 style="font-size: 20px; font-weight: 600; flex: 1;">${event.title}</h3>
-                    <span class="badge ${statusColors[event.status]}">${statusLabels[event.status]}</span>
-                </div>
-                <p style="color: var(--neutral-600); margin-bottom: 16px; line-height: 1.5;">
-                    ${event.short_description || 'لا يوجد وصف'}
-                </p>
-                <div style="display: flex; gap: 8px; color: var(--neutral-500); font-size: 14px; margin-bottom: 16px;">
-                    <span>📅</span>
-                    <span>${this.formatDate(startDate)}</span>
-                </div>
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-secondary" onclick="window.location.hash='#/events/${event.id}'" style="flex: 1;">
-                        عرض
-                    </button>
-                    <button class="btn btn-primary" data-edit-event="${event.id}" style="flex: 1;">
-                        تعديل
-                    </button>
-                    <button class="btn" data-delete-event="${event.id}"
-                            style="background: var(--error); color: white;">
-                        حذف
-                    </button>
+            <div class="event-card">
+                <div style="padding: var(--spacing-xl);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;">
+                        <h3 class="heading-secondary" style="font-size: 20px; flex: 1;">${event.title}</h3>
+                        <span class="badge ${statusColors[event.status]}">${statusLabels[event.status]}</span>
+                    </div>
+                    <p class="text-secondary" style="margin-bottom: 16px; line-height: 1.5;">
+                        ${event.short_description || 'لا يوجد وصف'}
+                    </p>
+                    <div style="display: flex; gap: 8px; margin-bottom: 16px;" class="text-muted">
+                        <span>📅</span>
+                        <span>${this.formatDate(startDate)}</span>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-ghost" onclick="window.location.hash='#/events/${event.id}'" style="flex: 1;">
+                            عرض
+                        </button>
+                        <button class="btn btn-primary" data-edit-event="${event.id}" style="flex: 1;">
+                            تعديل
+                        </button>
+                        <button class="btn btn-danger" data-delete-event="${event.id}">
+                            حذف
+                        </button>
+                    </div>
                 </div>
             </div>
         `;
@@ -153,6 +157,7 @@ export class DashboardPage {
 
         document.querySelectorAll('[data-delete-event]').forEach(btn => {
             btn.addEventListener('click', async (e) => {
+                e.stopPropagation();
                 const eventId = e.target.dataset.deleteEvent;
                 if (confirm('هل أنت متأكد من حذف هذه الفعالية؟')) {
                     await this.deleteEvent(eventId);
@@ -162,8 +167,9 @@ export class DashboardPage {
 
         document.querySelectorAll('[data-edit-event]').forEach(btn => {
             btn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const eventId = e.target.dataset.editEvent;
-                alert('ميزة التعديل قيد التطوير');
+                window.location.hash = `#/edit-event/${eventId}`;
             });
         });
     }
@@ -175,7 +181,11 @@ export class DashboardPage {
             .eq('id', eventId);
 
         if (!error) {
-            window.location.reload();
+            // Reload the page data without signing out
+            await this.loadMyEvents();
+            const app = document.getElementById('app');
+            app.innerHTML = await this.render();
+            this.mount();
         } else {
             alert('حدث خطأ أثناء الحذف');
         }

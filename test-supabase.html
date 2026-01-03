@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Supabase Connection Test</title>
+</head>
+<body>
+    <h1>Supabase Connection Test</h1>
+    <button onclick="testConnection()">Test Connection</button>
+    <div id="result"></div>
+
+    <script type="module">
+        import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js';
+        
+        const supabase = createClient(
+            'https://yzgyiygzpyzvoyaieohh.supabase.co',
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6Z3lpeWd6cHl6dm95YWllb2hoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYyNTIzNTksImV4cCI6MjA4MTgyODM1OX0.5r3KZXp3hPtFpHwVd0p1NLcrhL9jtDhG8dlT1LuUaNk'
+        );
+
+        window.testConnection = async function() {
+            const result = document.getElementById('result');
+            result.innerHTML = 'Testing connection...';
+            
+            try {
+                // Test basic connection
+                const { data, error } = await supabase.from('events').select('count');
+                if (error) {
+                    result.innerHTML = `Connection Error: ${error.message}`;
+                } else {
+                    result.innerHTML = 'Connection successful! Database is accessible.';
+                }
+            } catch (err) {
+                result.innerHTML = `Error: ${err.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

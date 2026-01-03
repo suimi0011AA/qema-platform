@@ -16,7 +16,10 @@ export class EventsPage {
         return `
             <nav class="nav">
                 <div class="nav-content">
-                    <a href="#/" class="nav-logo">مبادرة قِمّة</a>
+                    <a href="#/" class="nav-logo">
+                        <img src="src/assets/qimmahlogo.png" alt="مبادرة قِمّة" class="logo">
+                        <span>مبادرة قِمّة</span>
+                    </a>
                     <div class="nav-menu">
                         <a href="#/" class="nav-link">الرئيسية</a>
                         <a href="#/events" class="nav-link" style="color: var(--primary);">الفعاليات</a>
@@ -24,9 +27,7 @@ export class EventsPage {
                         ${user ? `
                             <a href="#/dashboard" class="nav-link">لوحة التحكم</a>
                             <button class="btn btn-secondary" id="logoutBtn">تسجيل الخروج</button>
-                        ` : `
-                            <a href="#/login" class="btn btn-primary">تسجيل الدخول</a>
-                        `}
+                        ` : ''}
                     </div>
                 </div>
             </nav>
@@ -34,21 +35,20 @@ export class EventsPage {
             <section class="section">
                 <div class="container">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 16px;">
-                        <h1 style="font-size: 32px; font-weight: 700;">الفعاليات القادمة</h1>
-                        ${user ? `<a href="#/create-event" class="btn btn-primary">إضافة فعالية</a>` : ''}
+                        <h1 class="heading-primary" style="font-size: 32px;">الفعاليات القادمة</h1>
                     </div>
 
-                    <div class="card" style="margin-bottom: 32px;">
+                    <div class="card shadow-soft" style="margin-bottom: 32px; background: var(--gray-50); border: 1px solid var(--gray-200);">
                         <div style="display: flex; gap: 16px; flex-wrap: wrap;">
                             <input
                                 type="text"
                                 class="input"
                                 id="searchInput"
                                 placeholder="ابحث عن فعالية..."
-                                style="flex: 1; min-width: 250px;"
+                                style="flex: 1; min-width: 250px; background: white; border-color: var(--gray-300);"
                                 value="${this.searchTerm}"
                             >
-                            <select class="select" id="tagFilter" style="min-width: 200px;">
+                            <select class="select" id="tagFilter" style="min-width: 200px; background: white; border-color: var(--gray-300);">
                                 <option value="">جميع التصنيفات</option>
                                 ${this.tags.map(tag => `
                                     <option value="${tag.id}" ${this.selectedTag === tag.id ? 'selected' : ''}>
@@ -70,10 +70,10 @@ export class EventsPage {
     renderEvents() {
         if (this.filteredEvents.length === 0) {
             return `
-                <div class="card" style="text-align: center; padding: 64px 32px;">
+                <div class="card shadow-soft" style="text-align: center; padding: 64px 32px; background: var(--gray-50);">
                     <div style="font-size: 64px; margin-bottom: 16px;">📅</div>
-                    <h3 style="margin-bottom: 8px;">لا توجد فعاليات</h3>
-                    <p style="color: var(--neutral-600);">لم يتم العثور على فعاليات تطابق البحث</p>
+                    <h3 class="heading-secondary" style="margin-bottom: 8px;">لا توجد فعاليات</h3>
+                    <p class="text-muted">لم يتم العثور على فعاليات تطابق البحث</p>
                 </div>
             `;
         }
@@ -100,7 +100,7 @@ export class EventsPage {
         }
 
         return `
-            <div class="card" style="cursor: pointer; height: 100%;" onclick="window.location.hash='#/events/${event.id}'">
+            <div class="event-card" style="cursor: pointer; height: 100%;" onclick="window.location.hash='#/events/${event.id}'">
                 ${event.cover_image ? `
                     <img src="${event.cover_image}" alt="${event.title}"
                          style="width: 100%; height: 200px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 16px;">
@@ -109,23 +109,25 @@ export class EventsPage {
                         🎯
                     </div>
                 `}
-                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
-                    <h3 style="font-size: 20px; font-weight: 600; flex: 1;">${event.title}</h3>
-                    ${statusBadge}
-                </div>
-                <p style="color: var(--neutral-600); margin-bottom: 16px; line-height: 1.5;">
-                    ${event.short_description || 'لا يوجد وصف'}
-                </p>
-                <div style="display: flex; gap: 8px; color: var(--neutral-500); font-size: 14px; margin-bottom: 8px;">
-                    <span>📅</span>
-                    <span>${this.formatDate(startDate)}</span>
-                </div>
-                ${event.location ? `
-                    <div style="display: flex; gap: 8px; color: var(--neutral-500); font-size: 14px;">
-                        <span>📍</span>
-                        <span>${event.location}</span>
+                <div style="padding: var(--spacing-xl);">
+                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 8px;">
+                        <h3 class="heading-secondary" style="font-size: 20px; flex: 1;">${event.title}</h3>
+                        ${statusBadge}
                     </div>
-                ` : ''}
+                    <p class="text-secondary" style="margin-bottom: 16px; line-height: 1.5;">
+                        ${event.short_description || 'لا يوجد وصف'}
+                    </p>
+                    <div style="display: flex; gap: 8px; margin-bottom: 8px;" class="text-muted">
+                        <span>📅</span>
+                        <span>${this.formatDate(startDate)}</span>
+                    </div>
+                    ${event.location ? `
+                        <div style="display: flex; gap: 8px;" class="text-muted">
+                            <span>📍</span>
+                            <span>${event.location}</span>
+                        </div>
+                    ` : ''}
+                </div>
             </div>
         `;
     }

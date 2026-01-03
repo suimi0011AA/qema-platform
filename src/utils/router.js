@@ -5,11 +5,12 @@ import { LoginPage } from '../pages/login.js';
 import { RegisterPage } from '../pages/register.js';
 import { DashboardPage } from '../pages/dashboard.js';
 import { CreateEventPage } from '../pages/create-event.js';
+import { EditEventPage } from '../pages/edit-event.js';
 import { ProgramsPage } from '../pages/programs.js';
-import { auth } from '../main.js';
 
 export class Router {
-    constructor() {
+    constructor(auth) {
+        this.auth = auth;
         this.routes = {
             '/': HomePage,
             '/events': EventsPage,
@@ -18,6 +19,7 @@ export class Router {
             '/register': RegisterPage,
             '/dashboard': DashboardPage,
             '/create-event': CreateEventPage,
+            '/edit-event/:id': EditEventPage,
             '/programs': ProgramsPage
         };
         this.currentPage = null;
@@ -32,9 +34,19 @@ export class Router {
         const hash = window.location.hash.slice(1) || '/';
         const app = document.getElementById('app');
 
-        const protectedRoutes = ['/dashboard', '/create-event'];
-        if (protectedRoutes.includes(hash) && !auth.isAuthenticated()) {
+        // Admin-only routes
+        const adminRoutes = ['/dashboard', '/create-event'];
+        const editEventRoute = hash.match(/^\/edit-event\/(.+)$/);
+        
+        if ((adminRoutes.includes(hash) || editEventRoute) && !this.auth.isAuthenticated()) {
             window.location.hash = '#/login';
+            return;
+        }
+
+        // Hide registration and login from public (admin-only)
+        if ((hash === '/register' || hash === '/login') && !this.isAdminAccess()) {
+            // Redirect to home if trying to access admin login/register
+            window.location.hash = '#/';
             return;
         }
 
@@ -68,6 +80,17 @@ export class Router {
         } else {
             app.innerHTML = '<div class="error-page"><h1>404 - الصفحة غير موجودة</h1></div>';
         }
+    }
+
+    // Check if this is an admin trying to access login/register
+    isAdminAccess() {
+        // Check for admin parameter in URL or if user is already authenticated
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAdminParam = urlParams.get('admin') === 'true';
+        const isAdminPath = window.location.pathname.includes('admin-login');
+        const isAuthenticated = this.auth.isAuthenticated();
+        
+        return isAuthenticated || isAdminParam || isAdminPath;
     }
 
     navigate(path) {

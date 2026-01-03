@@ -7,7 +7,10 @@ export class HomePage {
         return `
             <nav class="nav">
                 <div class="nav-content">
-                    <a href="#/" class="nav-logo">مبادرة قِمّة</a>
+                    <a href="#/" class="nav-logo">
+                        <img src="src/assets/qimmahlogo.png" alt="مبادرة قِمّة" class="logo">
+                        <span>مبادرة قِمّة</span>
+                    </a>
                     <div class="nav-menu">
                         <a href="#/" class="nav-link">الرئيسية</a>
                         <a href="#/events" class="nav-link">الفعاليات</a>
@@ -15,20 +18,17 @@ export class HomePage {
                         ${user ? `
                             <a href="#/dashboard" class="nav-link">لوحة التحكم</a>
                             <button class="btn btn-secondary" id="logoutBtn">تسجيل الخروج</button>
-                        ` : `
-                            <a href="#/login" class="btn btn-primary">تسجيل الدخول</a>
-                        `}
+                        ` : ''}
                     </div>
                 </div>
             </nav>
 
-            <section class="hero">
+            <section class="hero-brand">
                 <div class="container">
                     <h1>مرحبًا بك في مبادرة قِمّة</h1>
                     <p>منصة موحدة لجميع الفعاليات التقنية والتعليمية - هاكاثونات، مؤتمرات، معارض، ودورات</p>
                     <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-                        <a href="#/events" class="btn" style="background: white; color: var(--primary);">استكشف الفعاليات</a>
-                        ${!user ? `<a href="#/register" class="btn btn-outline" style="border-color: white; color: white;">انضم الآن</a>` : ''}
+                        <a href="#/events" class="btn" style="background: white; color: var(--brand-green);">استكشف الفعاليات</a>
                     </div>
                 </div>
             </section>
@@ -90,7 +90,7 @@ export class HomePage {
                 </div>
             </section>
 
-            <footer style="background: var(--neutral-900); color: white; padding: 32px 24px; text-align: center;">
+            <footer class="footer" style="padding: 32px 24px; text-align: center;">
                 <div class="container">
                     <p>&copy; 2024 مبادرة قِمّة. جميع الحقوق محفوظة.</p>
                 </div>

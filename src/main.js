@@ -11,9 +11,8 @@ if (!supabaseUrl || !supabaseKey) {
 }
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
-
 export const auth = new AuthManager(supabase);
-export const router = new Router();
+export const router = new Router(auth);
 
 document.addEventListener('DOMContentLoaded', () => {
     auth.init();
