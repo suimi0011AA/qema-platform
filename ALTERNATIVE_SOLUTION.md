@@ -24,7 +24,7 @@ If you have GitHub CLI, this is much easier:
 brew install gh
 
 # Authenticate with your token
-gh auth login --with-token <<< "[REDACTED_TOKEN]"
+gh auth login
 
 # Create repository and push
 gh repo create qema-platform-public --public --source=. --remote=origin --push
